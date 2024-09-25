@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import './App.css'
 
 function App() {
 
   const [todo, setTodo] = useState('');
   const [todos, setTodos] = useState([]);
+  const inputRef = useRef(null); 
 
   // Load todos from local storage on first render
   useEffect(() => {
@@ -26,6 +27,7 @@ function App() {
       const newTodo = { text: todo, completed: false }; 
       setTodos([...todos, newTodo]); 
       setTodo(''); 
+      inputRef.current.focus();
     }
   }
 
@@ -61,6 +63,7 @@ function App() {
           </div>
           <div className='input-button'>
             <input
+            ref={inputRef}
               className='todo-input'
               type="text"
               value={todo}
